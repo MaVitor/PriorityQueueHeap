@@ -93,7 +93,7 @@ public class PriorityQueue {
 
     private void swap(int i, int j) {
         Node temp = heap[i];
-        heap[i] = heap[j]
+        heap[i] = heap[j];
         heap[j] = temp;
     }
 }
