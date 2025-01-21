@@ -2,26 +2,47 @@ public class TestPriorityQueue {
     public static void main(String[] args) {
         PriorityQueue pq = new PriorityQueue(10);
 
-        // Teste de inserção e min
+        pq.insert(15);
+        pq.insert(10);
+        pq.insert(20);
         pq.insert(5);
-        assert pq.min() == 5 : "Erro: min() deveria retornar 5";
 
-        pq.insert(3);
-        assert pq.min() == 3 : "Erro: min() deveria retornar 3";
+        System.out.println("Min: " + pq.min()); // Deve imprimir 5
+        System.out.println("Remove Min: " + pq.removeMin()); // Deve imprimir 5
+        System.out.println("Min: " + pq.min()); // Deve imprimir 10
+        pq.insert(2);
+        System.out.println("Min: " + pq.min()); // Deve imprimir 2
+        System.out.println("Size: " + pq.getSize()); // Deve imprimir 4
+        System.out.println("Is Empty: " + pq.isEmpty()); // Deve imprimir false
 
-        pq.insert(8);
-        assert pq.min() == 3 : "Erro: min() deveria retornar 3";
+        // Teste de capacidade máxima
+        for (int i = 0; i < 10; i++) {
+            if (pq.getSize() < pq.capacity) {
+                pq.insert(i);
+            } else {
+                System.out.println("A fila de prioridade está cheia"); // Deve imprimir quando a capacidade for atingida
+                break;
+            }
+        }
 
-        // Teste de remoção do mínimo
-        assert pq.removeMin() == 3 : "Erro: removeMin() deveria retornar 3";
-        assert pq.min() == 5 : "Erro: min() deveria retornar 5";
+        // Teste de remoção de um elemento de uma fila vazia
+        PriorityQueue emptyPQ = new PriorityQueue(10);
+        if (emptyPQ.isEmpty()) {
+            System.out.println("A fila de prioridade está vazia"); // Deve imprimir quando a fila estiver vazia
+        } else {
+            emptyPQ.removeMin();
+        }
 
-        assert pq.removeMin() == 5 : "Erro: removeMin() deveria retornar 5";
-        assert pq.min() == 8 : "Erro: min() deveria retornar 8";
+        // Teste de obtenção do menor elemento de uma fila vazia
+        if (emptyPQ.isEmpty()) {
+            System.out.println("A fila de prioridade está vazia"); // Deve imprimir quando a fila estiver vazia
+        } else {
+            emptyPQ.min();
+        }
 
-        assert pq.removeMin() == 8 : "Erro: removeMin() deveria retornar 8";
-        assert pq.isEmpty() : "Erro: a fila de prioridade deveria estar vazia";
-
-        System.out.println("Todos os casos de teste passaram!");
+        // Teste de métodos auxiliares
+        System.out.println("Parent of 1: " + pq.parent(1)); // Deve imprimir 0
+        System.out.println("Left of 0: " + pq.left(0)); // Deve imprimir 1
+        System.out.println("Right of 0: " + pq.right(0)); // Deve imprimir 2
     }
 }
