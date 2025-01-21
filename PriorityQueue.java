@@ -1,11 +1,19 @@
+class Node {
+    int key;
+
+    Node(int key) {
+        this.key = key;
+    }
+}
+
 public class PriorityQueue {
-    private int[] heap;
+    private Node[] heap;
     private int size;
     private int capacity;
 
     public PriorityQueue(int capacity) {
         this.capacity = capacity;
-        heap = new int[capacity];
+        heap = new Node[capacity];
         size = 0;
     }
 
@@ -25,7 +33,7 @@ public class PriorityQueue {
         return size == 0;
     }
 
-    public int size() {
+    public int getSize() {
         return size;
     }
 
@@ -33,14 +41,15 @@ public class PriorityQueue {
         if (isEmpty()) {
             throw new IllegalStateException("A fila de prioridade está vazia");
         }
-        return heap[0];
+        return heap[0].key;
     }
 
     public void insert(int key) {
         if (size == capacity) {
             throw new IllegalStateException("A fila de prioridade está cheia");
         }
-        heap[size] = key;
+        Node newNode = new Node(key);
+        heap[size] = newNode;
         size++;
         upHeap(size - 1);
     }
@@ -49,7 +58,7 @@ public class PriorityQueue {
         if (isEmpty()) {
             throw new IllegalStateException("A fila de prioridade está vazia");
         }
-        int min = heap[0];
+        int min = heap[0].key;
         heap[0] = heap[size - 1];
         size--;
         downHeap(0);
@@ -57,7 +66,7 @@ public class PriorityQueue {
     }
 
     private void upHeap(int i) {
-        while (i > 0 && heap[parent(i)] > heap[i]) {
+        while (i > 0 && heap[parent(i)].key > heap[i].key) {
             swap(i, parent(i));
             i = parent(i);
         }
@@ -68,11 +77,11 @@ public class PriorityQueue {
         int left = left(i);
         int right = right(i);
 
-        if (left < size && heap[left] < heap[smallest]) {
+        if (left < size && heap[left].key < heap[smallest].key) {
             smallest = left;
         }
 
-        if (right < size && heap[right] < heap[smallest]) {
+        if (right < size && heap[right].key < heap[smallest].key) {
             smallest = right;
         }
 
@@ -83,8 +92,8 @@ public class PriorityQueue {
     }
 
     private void swap(int i, int j) {
-        int temp = heap[i];
-        heap[i] = heap[j];
+        Node temp = heap[i];
+        heap[i] = heap[j]
         heap[j] = temp;
     }
 }
